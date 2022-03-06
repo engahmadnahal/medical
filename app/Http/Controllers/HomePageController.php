@@ -16,7 +16,7 @@ class HomePageController extends Controller
     public function index(Request $request)
     {
         // $gesst =
-        // dd();
+        // dd($request->session());
         // $request->session()->flush();
 
         if(session('type') == 'doctor'){

@@ -92,6 +92,16 @@ class AuthCheckController extends Controller
 
     }
 
+    public function checkDoctor(){
+        $this->middleware(function ($request, $next) {
+            if(session()->get('type') != 'doctor'){
+                return abort(404);
+            }
+        return $next($request);
+        });
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -14,9 +14,8 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        if(session('type') != 'doctor'){
-            return abort(404);
-        }
+        $auth = new AuthCheckController();
+        $auth->checkDoctor();
     }
     public function index()
     {
@@ -47,11 +46,12 @@ class PatientController extends Controller
             'fname'=>'required|string',
             'lname'=>'required|string',
             'email'=>'required|email',
-            'mobile'=>'required|string|max:12|min:7',
+            'mobile'=>'required|string',
             'date_birth'=>'required|string',
-            'national_num'=>'required|string|max:12',
-            'ensurance_num'=>'required|string|max:12',
+            'national_num'=>'required|string|max:20',
+            'ensurance_num'=>'required|string|max:20',
             'city'=>'required',
+            'password'=>'required|min:6',
         ]);
 
 
@@ -64,6 +64,7 @@ class PatientController extends Controller
         $patient->city_id = $request->input('city');
         $patient->national_num = $request->input('national_num');
         $patient->ensurance_num = $request->input('ensurance_num');
+        $patient->password = $request->input('password');
         $patient->active = $request->input('active') == 'on' ? true : false;
         $patient->save();
         return redirect()->route('patients.index');
@@ -111,6 +112,8 @@ class PatientController extends Controller
             'national_num'=>'required|string|max:12',
             'ensurance_num'=>'required|string|max:12',
             'city'=>'required',
+            'password'=>'required|min:6',
+
         ]);
 
         $patient->first_name = $request->input('fname');
@@ -121,6 +124,7 @@ class PatientController extends Controller
         $patient->city_id = $request->input('city');
         $patient->national_num = $request->input('national_num');
         $patient->ensurance_num = $request->input('ensurance_num');
+        $patient->password = $request->input('password');
         $patient->save();
         return redirect()->route('patients.index');
     }

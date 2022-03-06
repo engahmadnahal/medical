@@ -29,7 +29,7 @@ class DoctorFactory extends Factory
             'password'=>$this->faker->password(),
             'email'=>$this->faker->email(),
             'cv'=>$this->faker->imageUrl(),
-            'avater'=>$this->faker->imageUrl(),
+            'avater'=>'login.png',
             'start_time'=>$this->faker->date(),
             'end_time'=>$this->faker->date(),
             'city_id'=>$this->faker->numberBetween(1,20),

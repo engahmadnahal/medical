@@ -13,9 +13,8 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        if(session('type') != 'doctor'){
-            return abort(404);
-        }
+       $auth = new AuthCheckController();
+        $auth->checkDoctor();
     }
     public function index()
     {

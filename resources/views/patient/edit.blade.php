@@ -186,7 +186,16 @@
                                     </div>
                                 </div>
                             </div>
-
+ <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="form-label">{{ __('cms.password') }} : </label>
+                                        <input class="form-control" name="password" type="text" id="password"
+                                            placeholder="{{ __('cms.password') }} "
+                                            value="{{ old('password')??$pateint->password }}">
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>

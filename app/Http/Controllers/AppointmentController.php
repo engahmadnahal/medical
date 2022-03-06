@@ -9,18 +9,22 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+    public $session_type;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        if(session('type') != 'doctor'){
-            return abort(404);
-        }
-    }
+
+     public function __construct(){
+        $auth = new AuthCheckController();
+        $auth->checkDoctor();
+     }
+
     public function index()
     {
+
+
         $appointments = Appointment::latest()->get();
         return view('appointment.index',['appointments'=>$appointments]);
     }
@@ -32,6 +36,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
+
        $appointments = Appointment::all();
        $patients = Patient::all();
        $doctors = Doctor::all();
