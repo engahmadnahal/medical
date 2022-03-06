@@ -25,6 +25,7 @@ class PatientFactory extends Factory
             'email'=>$this->faker->email(),
             'password'=>$this->faker->password(),
             'city_id'=>$this->faker->numberBetween(1,20),
+            'avater'=>'login.png',
         ];
     }
 }
