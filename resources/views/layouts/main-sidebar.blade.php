@@ -7,11 +7,11 @@
 				<div class="app-sidebar__user clearfix">
 					<div class="dropdown user-pro-body">
 						<div class="">
-							<img alt="user-img" class="avatar avatar-xl brround" src="@yield('user_avater_side')"><span class="avatar-status profile-status bg-green"></span>
+							<img alt="user-img" class="avatar avatar-xl brround" src="{{asset('upload/files').'/'.session('logged')[0]->toArray()['avater']}}"><span class="avatar-status profile-status bg-green"></span>
 						</div>
 						<div class="user-info">
-							<h4 class="font-weight-semibold mt-3 mb-0">@yield('user_name_side')</h4>
-							<span class="mb-0 text-muted">@yield('user_type__side')</span>
+							<h4 class="font-weight-semibold mt-3 mb-0">{{session('logged')[0]->toArray()['first_name'] }} {{session('logged')[0]->toArray()['last_name']}}</h4>
+							<span class="mb-0 text-muted">{{session('type')}}</span>
 						</div>
 					</div>
 				</div>
@@ -34,11 +34,11 @@
 				<div class="app-sidebar__user clearfix">
 					<div class="dropdown user-pro-body">
 						<div class="">
-							<img alt="user-img" class="avatar avatar-xl brround" src="@yield('user_avater_side')"><span class="avatar-status profile-status bg-green"></span>
+							<img alt="user-img" class="avatar avatar-xl brround" src="{{asset('upload/files').'/'.session('logged')[0]->toArray()['avater']}}"><span class="avatar-status profile-status bg-green"></span>
 						</div>
 						<div class="user-info">
-							<h4 class="font-weight-semibold mt-3 mb-0">@yield('user_name_side')</h4>
-							<span class="mb-0 text-muted">@yield('user_type__side')</span>
+							<h4 class="font-weight-semibold mt-3 mb-0">{{session('logged')[0]->toArray()['first_name'] }} {{session('logged')[0]->toArray()['last_name']}}</h4>
+							<span class="mb-0 text-muted">{{session('type')}}</span>
 						</div>
 					</div>
 				</div>

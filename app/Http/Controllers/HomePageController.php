@@ -16,11 +16,11 @@ class HomePageController extends Controller
     public function index(Request $request)
     {
         // $gesst =
-        // dd($request->session());
+        // dd(session('logged')[0]->toArray()['id']);
         // $request->session()->flush();
 
         if(session('type') == 'doctor'){
-            $data = Doctor::where('id',session('logged'))->first();
+            $data = Doctor::where('id',session('logged')[0]->toArray()['id'])->first();
             return view('index',['data'=>$data]);
         }
         if(session('type') == 'patient'){

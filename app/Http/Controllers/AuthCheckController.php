@@ -54,12 +54,13 @@ class AuthCheckController extends Controller
 
     public function check(Request $request)
     {
+
+        $info = [];
         $request->validate([
             'email'=>'required|email',
             'password'=>'required|string',
             'user'=>'required'
         ]);
-
         if($request->user == 'doctor'){
             $doctor = Doctor::where('email',$request->email)->first();
             if(!$doctor){
@@ -67,7 +68,8 @@ class AuthCheckController extends Controller
             return redirect()->back();
             }
             if($request->password == $doctor->password){
-                session()->put('logged',$doctor->id);
+                array_push($info,$doctor);
+                session()->put('logged',$info);
                 session()->put('type','doctor');
                 return redirect()->route('index');
             }
@@ -81,7 +83,8 @@ class AuthCheckController extends Controller
             return redirect()->back();
             }
             if($request->password == $patient->password){
-                session()->put('logged',$patient->id);
+                array_push($info,$patient);
+                session()->put('logged',$info);
                 session()->put('type','patient');
                 return redirect()->route('index');
             }

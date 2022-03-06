@@ -1,3 +1,4 @@
+{{-- {{dd()}} --}}
 <style>.Notification-scroll{overflow: hidden;}.widget-user .widget-user-image > img{height: 90px;}</style>
 <!-- main-header opened -->
 			<div class="main-header sticky side-header nav nav-item">
@@ -19,17 +20,17 @@
 						<div class="nav nav-item  navbar-nav-right ml-auto">
 
 							<div class="dropdown main-profile-menu nav nav-item nav-link">
-								<a class="profile-user d-flex" href=""><img alt="" src="@yield('user_avater_head')"></a>
+								<a class="profile-user d-flex" href=""><img alt="" src="{{asset('upload/files').'/'.session('logged')[0]->toArray()['avater']}}"></a>
 								<div class="dropdown-menu">
 									<div class="main-header-profile bg-primary p-3">
 										<div class="d-flex wd-100p">
-											<div class="main-img-user"><img alt="" src="@yield('user_avater_head')" class=""></div>
+											<div class="main-img-user"><img alt="" src="{{asset('upload/files').'/'.session('logged')[0]->toArray()['avater']}}" class=""></div>
 											<div class="mr-3 my-auto">
-												<h6>@yield('user_name_head')</h6><span>@yield('user_type_head')</span>
+												<h6>{{session('logged')[0]->toArray()['first_name'] }} {{session('logged')[0]->toArray()['last_name']}}</h6><span>{{session('type')}}</span>
 											</div>
 										</div>
 									</div>
-									<a class="dropdown-item" href="@yield('user_profile_head')"><i class="bx bx-user-circle"></i>{{__('cms.profil')}}</a>
+									<a class="dropdown-item" href="@if(session('type') == 'doctor') {{route('doctors.show',session('logged')[0]->toArray()['id'])}} @elseif(session('type') == 'patient') {{route('patients.show',session('logged')[0]->toArray()['id'])}} @endif"><i class="bx bx-user-circle"></i>{{__('cms.profil')}}</a>
 									<a class="dropdown-item" href="{{route('logout')}}"><i class="bx bx-log-out"></i> {{__('cms.logoute')}}</a>
 								</div>
 							</div>
