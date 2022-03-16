@@ -58,7 +58,7 @@
 @section('content')
     <!-- Row Content -->
     {{-- action="{{ route('doctors.store') }}" method="post" --}}
-    <form action="{{ route('doctors.store') }}" method="post" enctype="multipart/form-data">
+    <form enctype="multipart/form-data">
         @csrf
         <div class="row row-sm">
             <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
@@ -128,7 +128,8 @@
                     </div>
 
                     <div class="py-2 px-3">
-                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit" id="add">{{ __('cms.save') }}</button>
+                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" onclick="preformStor()" type="button"
+                            id="add">{{ __('cms.save') }}</button>
                     </div>
                 </div>
 
@@ -250,10 +251,54 @@
     <script src="{{ asset('assets/plugins/fileuploads/js/fileupload.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
-    {{-- <script src="{{ asset('js/main.js') }}"></script> --}}
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
+        function preformStor() {
 
+            axios({
+                method: 'POST',
+                url: '/doctors',
+                data: {
+                    fname: document.getElementById("fname").value,
+                    lname: document.getElementById("lname").value,
+                    email: document.getElementById("email").value,
+                    mobile: document.getElementById("mobile").value,
+                    work_id: document.getElementById("work_id").value,
+                    date_birth: document.getElementById("date_birth").value,
+                    password: document.getElementById("password").value,
+                    start_time: document.getElementById("start_time").value,
+                    end_time: document.getElementById("end_time").value,
+                    cv: document.getElementById("cv").value,
+                    avater: document.getElementById("avater").value,
+                    specialite: document.getElementById("specialite").value,
+                    city: document.getElementById("city").value,
+                    degree: document.getElementById("degree").value,
+                    gender: document.getElementById("gender").value,
+                },
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }).then(function(response) {
+                console.log(response.data.msg)
+            }).catch(function(err) {
+                console.log(err.response.data);
+            });
+
+
+
+            // axios.post('/doctors', {
+
+            // }, headers: {
+            //     'Content-type': 'multipart/form-data'
+            // }).then(function(response) {
+            //     console.log(response.data.msg)
+            // }).catch(function(err) {
+            //     console.log(err.response.data.msg);
+            // });
+
+
+        }
 
 
         (function($) {
@@ -308,8 +353,5 @@
 
 
         //____________________________________
-
-
-
     </script>
 @endsection
