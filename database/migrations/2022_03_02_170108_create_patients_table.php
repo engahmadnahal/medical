@@ -26,6 +26,8 @@ class CreatePatientsTable extends Migration
             $table->boolean('active')->default(false);
             $table->string('email');
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->string('avater')->default(asset('assets/img/1.jpg'));
             $table->softDeletes();
             $table->timestamps();

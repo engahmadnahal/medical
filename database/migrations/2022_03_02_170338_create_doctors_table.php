@@ -26,8 +26,10 @@ class CreateDoctorsTable extends Migration
             $table->string('work_id');
             $table->enum('degree',['master','doctors']);
             $table->date('birth_date');
-            $table->string('password');
             $table->string('email');
+            $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->string('cv');
             $table->string('avater')->default(asset('assets/img/1.jpg'));
             $table->datetime('start_time');

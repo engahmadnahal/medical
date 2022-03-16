@@ -41,7 +41,7 @@
 														<label>{{__('cms.password')}}</label> <input class="form-control" name="password" placeholder="{{__('cms.password')}}" type="password" value="{{old('password')}}">
                                                         @error('password') {{$message}} @enderror
 													</div><button class="btn btn-main-primary btn-block">{{__('cms.sign_in')}}</button>
-                                                    <div class="row mg-t-10">
+                                                    {{-- <div class="row mg-t-10">
                                                         <div class="col-lg-6">
                                                             <label class="rdiobox"><input name="user" type="radio" value="doctor" @if(old('user') == 'doctor') checked @endif> <span>{{__('cms.sign_in_doctor')}}</span></label>
                                                         </div>
@@ -50,7 +50,7 @@
                                                         </div>
                                                         @error('user') {{$message}} @enderror
 
-                                                    </div>
+                                                    </div> --}}
 												</form>
 												<div class="main-signin-footer mt-5">
 													<p><a href="">{{__('cms.forget_password')}}</a></p>

@@ -20,13 +20,13 @@
 						<div class="nav nav-item  navbar-nav-right ml-auto">
 
 							<div class="dropdown main-profile-menu nav nav-item nav-link">
-								<a class="profile-user d-flex" href=""><img alt="" src="{{asset('upload/files').'/'.session('logged')[0]->toArray()['avater']}}"></a>
+								<a class="profile-user d-flex" href=""><img alt="" src="##"></a>
 								<div class="dropdown-menu">
 									<div class="main-header-profile bg-primary p-3">
 										<div class="d-flex wd-100p">
-											<div class="main-img-user"><img alt="" src="{{asset('upload/files').'/'.session('logged')[0]->toArray()['avater']}}" class=""></div>
+											<div class="main-img-user"><img alt="" src="##" class=""></div>
 											<div class="mr-3 my-auto">
-												<h6>{{session('logged')[0]->toArray()['first_name'] }} {{session('logged')[0]->toArray()['last_name']}}</h6><span>{{session('type')}}</span>
+												<h6>Ahmad Ahmad Ahmad Ahmad</h6><span>Doctr</span>
 											</div>
 										</div>
 									</div>

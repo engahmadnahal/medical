@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
 {
@@ -19,14 +20,7 @@ class HomePageController extends Controller
         // dd(session('logged')[0]->toArray()['id']);
         // $request->session()->flush();
 
-        if(session('type') == 'doctor'){
-            $data = Doctor::where('id',session('logged')[0]->toArray()['id'])->first();
-            return view('index',['data'=>$data]);
-        }
-        if(session('type') == 'patient'){
-            $data = Patient::where('id',session('logged'))->first();
-            return view('index',['data'=>$data]);
-        }
+        return view('index');
     }
 
     /**
@@ -96,7 +90,9 @@ class HomePageController extends Controller
     }
 
     public function logout(Request $request){
-        $request->session()->flush();
-        return redirect()->route('auth.index');
+        $guard = session()->get('guard');
+        Auth::guard($guard)->logout();
+        $request->session()->invalidate();
+        return redirect()->route('auth.index','user');
     }
 }

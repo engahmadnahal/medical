@@ -26,12 +26,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('check',[AuthCheckController::class,'check'])->name('auth.check');
-Route::resource('auth',AuthCheckController::class);
 
-Route::group(['middleware'=>['authchake']],function(){
+Route::middleware('guest:admin,user')->group(function(){
+Route::get('auth/{guard}',[AuthCheckController::class , 'index'])->name('auth.index');
+});
+
+Route::group(['middleware'=>['auth:admin,user']],function(){
 
 Route::get('/logout',[HomePageController::class,'logout'])->name('logout');
 Route::resource('/',HomePageController::class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Doctor
 Route::get('/doctors/trash',[DoctorController::class,'trash'])->name('doctors.trash');

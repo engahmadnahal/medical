@@ -23,8 +23,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ __('cms.welcome') }} {{ $data->first_name }}
-                    {{ $data->last_name }}</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                    {{ __('cms.welcome') }} Ahmad </h2>
                 <p class="mg-b-0">{{ __('cms.note_hello') }} .</p>
             </div>
         </div>
@@ -38,20 +38,19 @@
     <!-- row closed -->
 
     <!-- row opened IF DOCTOR -->
-    @if(session('type') == 'doctor')
     <div class="row row-sm row-deck">
         <div class="col-md-12 col-lg-4 col-xl-4">
             <div class="card card-dashboard-eight pb-2">
                 <h6 class="card-title">{{ __('cms.patients') }}</h6><span
                     class="d-block mg-b-10 text-muted tx-12">{{ __('cms.show_patients') }}</span>
                 <div class="list-group">
-                    @foreach ($data->pateins as $pateint)
+                    {{-- @foreach ($data->pateins as $pateint)
                         <div class="list-group-item ">
                             <p>{{ $pateint->first_name }} {{ $pateint->last_name }}</p><span><a
                                     href="{{ route('patients.show', $pateint->id) }}"><i
                                         class="far fa-eye"></i></a></span>
                         </div>
-                    @endforeach
+                    @endforeach --}}
 
                 </div>
             </div>
@@ -74,7 +73,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data->appointments as $appoinment)
+                            {{-- @foreach ($data->appointments as $appoinment)
                                 <tr>
                                     <td>{{ $appoinment->date }}</td>
                                     <td class="tx-right tx-medium tx-inverse">{{ $appoinment->toArray()['time'] }}</td>
@@ -84,7 +83,7 @@
                                     <td class="tx-right tx-medium tx-inverse">{{ $appoinment->patient->first_name }}
                                         {{ $appoinment->patient->last_name }} (USERID#{{ $appoinment->patient_id }})</td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
 
                         </tbody>
                     </table>
@@ -92,59 +91,8 @@
             </div>
         </div>
     </div>
-    @endif
-    @if(session('type') == 'patient')
-    <!-- row opened IF Patient -->
-    <div class="row row-sm row-deck">
-        <div class="col-md-12 col-lg-4 col-xl-4">
-            <div class="card card-dashboard-eight pb-2">
-                <h6 class="card-title">{{__('cms.all_doctor')}}</h6><span class="d-block mg-b-10 text-muted tx-12">{{__('cms.show_doctors')}}</span>
-                <div class="list-group">
-                    @foreach ($data->doctors as $doctor)
 
 
-                        <div class="list-group-item ">
-                        <p>{{$doctor->first_name}} {{$doctor->last_name}}</p><span><a href="{{route('doctors.show',$doctor->id)}}"><i class="far fa-eye"></i></a></span>
-                    </div>
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-8 col-xl-8">
-            <div class="card card-table-two">
-                <div class="d-flex justify-content-between">
-                    <h4 class="card-title mb-1">{{__('cms.all_appointments')}}</h4>
-                    <i class="mdi mdi-dots-horizontal text-gray"></i>
-                </div>
-                <span class="tx-12 tx-muted mb-3 ">{{__('cms.show_appointments')}}.</span>
-                <div class="table-responsive country-table">
-                    <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
-                        <thead>
-                            <tr>
-                                <th class="wd-lg-25p">{{__('cms.date')}}</th>
-                                <th class="wd-lg-25p tx-right">{{__('cms.time')}}</th>
-                                <th class="wd-lg-25p tx-right">{{__('cms.status_patients')}}</th>
-                                <th class="wd-lg-25p tx-right">{{__('cms.patient')}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data->appointments as $appoinment)
-                            <tr>
-                                <td>{{$appoinment->date}}</td>
-                                <td class="tx-right tx-medium tx-inverse">{{$appoinment->toArray()['time']}}</td>
-                                <td class="tx-right tx-medium tx-inverse "><span class="@if($appoinment->status == 1) text-danger @else text-warning @endif">{{$appoinment->status_patient}}</span></td>
-                                <td class="tx-right tx-medium tx-inverse">{{$appoinment->doctor->first_name}} {{$appoinment->doctor->last_name}} (USERID#{{$appoinment->doctor_id}})</td>
-                            </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
     <!-- /row -->
     </div>
     </div>

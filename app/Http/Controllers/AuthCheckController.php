@@ -6,6 +6,7 @@ use App\Models\AuthCheck;
 use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthCheckController extends Controller
 {
@@ -14,8 +15,13 @@ class AuthCheckController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->request->add(['guard'=>$request->guard]);
+       $request->validate([
+        'guard'=>'required|string|in:admin,user'
+       ]);
+       $request->session()->put('guard',$request->input('guard'));
         return view('auth.signin');
     }
 
@@ -55,53 +61,90 @@ class AuthCheckController extends Controller
     public function check(Request $request)
     {
 
-        $info = [];
         $request->validate([
             'email'=>'required|email',
-            'password'=>'required|string',
-            'user'=>'required'
+            'password'=>'required|string:min:3',
         ]);
-        if($request->user == 'doctor'){
-            $doctor = Doctor::where('email',$request->email)->first();
-            if(!$doctor){
-            session()->flash('msg',__('cms.error_user'));
-            return redirect()->back();
-            }
-            if($request->password == $doctor->password){
-                array_push($info,$doctor);
-                session()->put('logged',$info);
-                session()->put('type','doctor');
-                return redirect()->route('index');
-            }
-            session()->flash('msg',__('cms.error_pass'));
-            return redirect()->back();
-
+        $guard = session()->get('guard');
+        $crednetioal = [
+            "email"=>$request->input("email"),
+            "password"=>$request->input("password")
+        ];
+        if(Auth::guard($guard)->attempt($crednetioal)){
+            return redirect()->route('index');
         }else{
-            $patient = Patient::where('email',$request->email)->first();
-            if(!$patient){
-            session()->flash('msg',__('cms.error_user'));
             return redirect()->back();
-            }
-            if($request->password == $patient->password){
-                array_push($info,$patient);
-                session()->put('logged',$info);
-                session()->put('type','patient');
-                return redirect()->route('index');
-            }
-            session()->flash('msg',__('cms.error_pass'));
-            return redirect()->back();
-
         }
 
-    }
 
-    public function checkDoctor(){
-        $this->middleware(function ($request, $next) {
-            if(session()->get('type') != 'doctor'){
-                return abort(404);
-            }
-        return $next($request);
-        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //     $info = [];
+    //     $request->validate([
+    //         'email'=>'required|email',
+    //         'password'=>'required|string',
+    //         'user'=>'required'
+    //     ]);
+    //     if($request->user == 'doctor'){
+    //         $doctor = Doctor::where('email',$request->email)->first();
+    //         if(!$doctor){
+    //         session()->flash('msg',__('cms.error_user'));
+    //         return redirect()->back();
+    //         }
+    //         if($request->password == $doctor->password){
+    //             array_push($info,$doctor);
+    //             session()->put('logged',$info);
+    //             session()->put('type','doctor');
+    //             return redirect()->route('index');
+    //         }
+    //         session()->flash('msg',__('cms.error_pass'));
+    //         return redirect()->back();
+
+    //     }else{
+    //         $patient = Patient::where('email',$request->email)->first();
+    //         if(!$patient){
+    //         session()->flash('msg',__('cms.error_user'));
+    //         return redirect()->back();
+    //         }
+    //         if($request->password == $patient->password){
+    //             array_push($info,$patient);
+    //             session()->put('logged',$info);
+    //             session()->put('type','patient');
+    //             return redirect()->route('index');
+    //         }
+    //         session()->flash('msg',__('cms.error_pass'));
+    //         return redirect()->back();
+
+    //     }
+
+    // }
+
+    // public function checkDoctor(){
+    //     $this->middleware(function ($request, $next) {
+    //         if(session()->get('type') != 'doctor'){
+    //             return abort(404);
+    //         }
+    //     return $next($request);
+    //     });
 
     }
 
