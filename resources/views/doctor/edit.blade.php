@@ -121,10 +121,18 @@
                                 <option value="M" @if (old('gender') == 'M' || $doctor->gender == 'M') selected @endif>ذكر</option>
                                 <option value="F" @if (old('gender') == 'F' || $doctor->gender == 'F') selected @endif>اثنى</option>
                             </select>
-
-
                         </div>
-
+                        <div class="form-group">
+                            <label class="form-label">{{ __('cms.roles') }}</label>
+                            <select name="role" id="role" class="form-control select2 select2-hidden-accessible"
+                                data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                <option>{{ __('cms.select') }}</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}" @if ($role->id == $doctor->roles[0]->id) selected @endif>
+                                        {{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label class="form-label">{{ __('cms.avater') }}</label>
                             <div class="previewAvater">
@@ -132,6 +140,7 @@
                             </div>
                             <input type="file" class="avater" data-height="200" id="avater" name="avater" >
                         </div>
+
 
                     </div>
 

@@ -58,7 +58,7 @@
 @section('content')
     <!-- Row Content -->
     {{-- action="{{ route('doctors.store') }}" method="post" --}}
-    <form enctype="multipart/form-data">
+    <form enctype="multipart/form-data" action="{{ route('doctors.store') }}" method="post">
         @csrf
         <div class="row row-sm">
             <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
@@ -77,9 +77,6 @@
                                         {{ $citie->name_ar }}</option>
                                 @endforeach
                             </select>
-
-
-
 
                         </div>
                         <div class="form-group">
@@ -119,6 +116,17 @@
 
 
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ __('cms.roles') }}</label>
+                            <select name="role" id="role" class="form-control select2 select2-hidden-accessible"
+                                data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                <option>{{ __('cms.select') }}</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}" @if ($role->id == old('role')) selected @endif>
+                                        {{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label class="form-label">{{ __('cms.avater') }}</label>
@@ -128,7 +136,7 @@
                     </div>
 
                     <div class="py-2 px-3">
-                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" onclick="preformStor()" type="button"
+                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2"  type="submit"
                             id="add">{{ __('cms.save') }}</button>
                     </div>
                 </div>
@@ -348,6 +356,7 @@
                 minimumResultsForSearch: Infinity,
                 placeholder: 'Choose one'
             });
+
         });
 
 

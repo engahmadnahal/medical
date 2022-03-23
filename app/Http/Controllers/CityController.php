@@ -13,9 +13,9 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-       $auth = new AuthCheckController();
-        $auth->checkDoctor();
+        $this->authorizeResource(City::class,'city');
     }
+
     public function index()
     {
         $cities = City::latest()->get();

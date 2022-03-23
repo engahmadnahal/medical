@@ -26,7 +26,7 @@ class DoctorFactory extends Factory
             'work_id'=>$this->faker->numberBetween(1000,9999),
             'degree'=>$selectDegree,
             'birth_date'=>$this->faker->date(),
-            'password'=>$this->faker->password(),
+            'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'email'=>$this->faker->email(),
             'cv'=>$this->faker->imageUrl(),
             'avater'=>'login.png',

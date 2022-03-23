@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Patient extends Authenticatable
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,HasRoles;
         public function doctors(){
         return $this->belongsToMany(Doctor::class,'appointments','patient_id','doctor_id');
     }

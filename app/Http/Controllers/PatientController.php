@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Symfony\Component\HttpFoundation\Response;
 
 class PatientController extends Controller
 {
@@ -13,13 +16,15 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $auth = new AuthCheckController();
-        $auth->checkDoctor();
+
+    public function __construct()
+    {
+        $this->authorizeResource(Patient::class,'patient');
     }
+
     public function index()
     {
-        $patient = Patient::latest()->get();
+        $patient = Patient::latest()->withCount('permissions')->get();
         return view('patient.index',['patients'=>$patient]);
     }
 
@@ -64,7 +69,7 @@ class PatientController extends Controller
         $patient->city_id = $request->input('city');
         $patient->national_num = $request->input('national_num');
         $patient->ensurance_num = $request->input('ensurance_num');
-        $patient->password = $request->input('password');
+        $patient->password = Hash::make($request->input('password'));
         $patient->active = $request->input('active') == 'on' ? true : false;
         $patient->save();
         return redirect()->route('patients.index');
@@ -150,5 +155,55 @@ class PatientController extends Controller
     {
         Patient::withTrashed()->where('id',$id)->restore();
         return redirect()->route('patients.index');
+    }
+
+
+    /**
+     * Show Page for update.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Patient  $patient
+     * @return \Illuminate\Http\Response
+     */
+    public function editUserPermission(Request $request , Patient $patient ){
+        $permissions = Permission::where('guard_name','user')->get();
+        $userPermissions = $patient->permissions;
+        if(count($userPermissions) > 0){
+            foreach($permissions as $permission){
+                $permission->setAttribute('assign',false);
+                foreach($userPermissions as $rolePermission){
+                    if($rolePermission->id == $permission->id){
+                        $permission->setAttribute('assign',true);
+                    }
+                }
+            }
+        }
+        return view('patient.user-permissions',['patient'=>$patient,'permissions'=>$permissions]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Patient  $patient
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUserPermission(Request $request , Patient $patient ){
+
+        $validator = Validator($request->all(),[
+            'permission_id' =>'required|exists:permissions,id'
+        ]);
+
+        if(!$validator->fails()){
+            $permission = Permission::findOrFail($request->input('permission_id'));
+            if($patient->hasPermissionTo($permission)){
+                $patient->revokePermissionTo($permission);
+            }else{
+                $patient->givePermissionTo($permission);
+            }
+            return response()->json(['msg'=>'Success add this permission'],Response::HTTP_OK);
+        }else{
+        return response()->json(['msg'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
+        }
     }
 }

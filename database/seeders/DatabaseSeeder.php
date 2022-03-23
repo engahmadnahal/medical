@@ -8,6 +8,8 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Specialite;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +25,7 @@ class DatabaseSeeder extends Seeder
         City::factory(30)->create();
         Patient::factory(30)->create();
         Specialite::factory(30)->create();
-                Doctor::create([
+        Doctor::create([
             'first_name'=>"Super",
             'last_name'=>"Admin",
             'mobile'=>"Admin",
@@ -39,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'end_time'=>"2022-03-16 20:29:30.000000",
             'city_id'=>1,
             'specialite_id'=>1,
-        ]);
+        ])->syncRoles(1);
         Doctor::factory(30)->create();
         Appointment::factory(30)->create();
     }

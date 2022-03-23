@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Doctor extends Authenticatable
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,HasRoles;
 
     public function city(){
         return $this->belongsTo(City::class,'city_id','id');

@@ -23,7 +23,7 @@ class PatientFactory extends Factory
             'birth_date'=>$this->faker->date(),
             'active'=>$this->faker->boolean(),
             'email'=>$this->faker->email(),
-            'password'=>$this->faker->password(),
+            'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'city_id'=>$this->faker->numberBetween(1,20),
             'avater'=>'login.png',
         ];

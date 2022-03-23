@@ -20,13 +20,13 @@
 						<div class="nav nav-item  navbar-nav-right ml-auto">
 
 							<div class="dropdown main-profile-menu nav nav-item nav-link">
-								<a class="profile-user d-flex" href=""><img alt="" src="##"></a>
+								<a class="profile-user d-flex" href=""><img alt="" src="{{asset('upload/files').'/'. auth()->user()->avater}}"></a>
 								<div class="dropdown-menu">
 									<div class="main-header-profile bg-primary p-3">
 										<div class="d-flex wd-100p">
-											<div class="main-img-user"><img alt="" src="##" class=""></div>
+											<div class="main-img-user"><img alt="" src="{{asset('upload/files').'/'. auth()->user()->avater}}" class=""></div>
 											<div class="mr-3 my-auto">
-												<h6>Ahmad Ahmad Ahmad Ahmad</h6><span>Doctr</span>
+												<h6>{{auth()->user()->first_name}}</h6>
 											</div>
 										</div>
 									</div>

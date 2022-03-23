@@ -33,12 +33,19 @@ form {
                         <div class="btn-group">
                             <button class="btn btn-light" onclick="document.location.reload()"><i
                                     class="bx bx-refresh"></i></button>
+                                    @can('Delete-Appoinment')
+
                                     <a href="{{route('appointment.trash')}}" class="btn btn-light "><i
                                     class="bx bx-archive"></i></a>
+                                    @endcan
+
                         </div>
                         <div class="pr-1 mb-3 mb-xl-0">
-                            <a href="{{route('appointment.create')}}" class="btn btn-primary btn-icon ml-2"><i
-                                    class="typcn typcn-edit"></i></a>
+                            @can('Create-Appoinment')
+                            <a href="{{route('appointment.create')}}" class="btn btn-primary btn-icon ml-2">
+                                <i class="typcn typcn-edit"></i>
+                            </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -88,9 +95,14 @@ form {
                                         <a href="{{route('appointment.show',$appointment->id)}}" class="btn btn-sm btn-primary">
                                             <i class="far fa-eye"></i>
                                         </a>
+                                        @can('Update-Appoinment')
+
                                         <a href="{{route('appointment.edit',$appointment->id)}}" class="btn btn-sm btn-info">
                                             <i class="las la-pen"></i>
                                         </a>
+                                        @endcan
+                                        @can('Delete-Appoinment')
+
                                         <form action="{{route('appointment.destroy',$appointment->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -98,6 +110,7 @@ form {
                                             <i class="las la-trash"></i>
                                         </button>
                                         </form>
+                                        @endcan
 
                                     </td>
                                 </tr>

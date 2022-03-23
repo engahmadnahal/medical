@@ -12,10 +12,7 @@ class SpecialiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-       $auth = new AuthCheckController();
-        $auth->checkDoctor();
-    }
+
     public function index()
     {
         $specialites = Specialite::latest()->get();

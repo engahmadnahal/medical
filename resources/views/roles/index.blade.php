@@ -12,7 +12,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{__('cms.all_pateins')}}</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{__('cms.roles')}}</h2>
 
             </div>
         </div>
@@ -27,13 +27,14 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{__('cms.all_pateins')}}</h4>
+                        <h4 class="card-title mg-b-0">{{__('cms.roles')}}</h4>
                         <div class="btn-group">
-                            <button class="btn btn-light" onclick="document.location.reload()"><i class="bx bx-refresh"></i></button> <a
-                                class="btn btn-light " href="{{route('patients.trash')}}"><i class="bx bx-archive"></i></a>
+                            <button class="btn btn-light" onclick="document.location.reload()"><i class="bx bx-refresh"></i>
+                            </button>
+
                         </div>
                         <div class="pr-1 mb-3 mb-xl-0">
-                            <a href="{{route('patients.create')}}" class="btn btn-primary btn-icon ml-2"><i
+                            <a href="{{route('roles.create')}}" class="btn btn-primary btn-icon ml-2"><i
                                     class="typcn typcn-edit"></i></a>
                         </div>
                     </div>
@@ -45,56 +46,30 @@
 
                                 <tr>
 
-                                    <th class="wd-lg-8p"><span>{{ __('cms.name_pateint') }}</span></th>
-                                    <th class="wd-lg-20p"><span>{{ __('cms.join_date') }}</span></th>
-                                    <th class="wd-lg-20p"><span>{{ __('cms.mobile') }}</span></th>
-                                    <th class="wd-lg-20p"><span>{{ __('cms.email') }}</span></th>
+                                    <th class="wd-lg-8p"><span>{{ __('cms.name_role') }}</span></th>
+                                    <th class="wd-lg-8p"><span>{{ __('cms.name_guard') }}</span></th>
                                     <th class="wd-lg-8p"><span>{{ __('cms.count_permisson') }}</span></th>
-                                    <th class="wd-lg-20p"><span>{{ __('cms.ensur_num') }}</span></th>
-                                    <th class="wd-lg-20p"><span>{{ __('cms.national_number') }}</span></th>
-                                    <th class="wd-lg-20p"><span>{{ __('cms.date_birth') }}</span></th>
                                     <th class="wd-lg-20p">{{ __('cms.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($patients as $patient)
+                                @foreach ($roles as $role)
                                     <tr>
                                         <td colspan="1">
-                                            {{ $patient->first_name }} {{ $patient->last_name }}
+                                            {{ $role->name }}
                                         </td>
                                         <td>
-                                            {{ $patient->toArray()['created_at'] }}
+                                            {{$role->guard_name}}
                                         </td>
-                                       <td>
-                                            {{ $patient->mobile }}
-                                       </td>
-
-                                       <td>
-                                            {{ $patient->email }}
-                                       </td>
-                                       <td>
-                                           <a href="{{route('patients.permissions',$patient->id)}}">{{$patient->permissions_count}}</a>
-                                       </td>
-                                       <td>
-                                            {{ $patient->ensurance_num }}
-                                       </td>
-
-                                       <td>
-                                            {{ $patient->national_num }}
-                                       </td>
-                                       <td>
-                                           {{ $patient->birth_date }}
-                                       </td>
-
                                         <td>
-                                            <a href="{{ route('patients.show', $patient->id) }}"
-                                                class="btn btn-sm btn-primary">
-                                                <i class="far fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-sm btn-info">
+                                            <a href="{{route('roles.show',$role->id)}}">{{$role->permissions_count}}</a>
+                                        </td>
+                                        <td>
+
+                                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-info">
                                                 <i class="las la-pen"></i>
                                             </a>
-                                            <form action="{{ route('patients.destroy', $patient->id) }}" method="post" class="btn btn-sm btn-danger">
+                                            <form action="{{ route('roles.destroy', $role->id) }}" method="post" class="btn btn-sm btn-danger">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" style=" border: 0; background: transparent; color: #fff; font-size: 15px; ">

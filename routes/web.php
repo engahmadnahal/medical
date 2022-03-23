@@ -7,6 +7,8 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SpecialiteController;
 use App\Http\Middleware\AuthCheck;
 use App\Models\Doctor;
@@ -27,6 +29,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('check',[AuthCheckController::class,'check'])->name('auth.check');
 
+// Only Admin
+Route::middleware('auth:admin')->group(function(){
+    //Role And Permission
+Route::resource('permissions', PermissionController::class);
+Route::resource('roles', RoleController::class);
+Route::post('roles/permission',[RoleController::class , 'updateRolePermission'])->name('role.updata_permission');
+
+// Doctor
+Route::get('/doctors/trash',[DoctorController::class,'trash'])->name('doctors.trash');
+Route::post('/doctors/restore/{id}',[DoctorController::class,'restore'])->name('doctors.restore');
+Route::resource('doctors',DoctorController::class);
+
+// User Permissions
+
+Route::get('patients/{patient}/permission/edit',[PatientController::class , 'editUserPermission'])->name('patients.permissions');
+Route::put('patients/{patient}/permission/update',[PatientController::class , 'updateUserPermission'])->name('patients.update_permissions');
+
+});
+
+
 Route::middleware('guest:admin,user')->group(function(){
 Route::get('auth/{guard}',[AuthCheckController::class , 'index'])->name('auth.index');
 });
@@ -37,6 +59,7 @@ Route::get('/logout',[HomePageController::class,'logout'])->name('logout');
 Route::resource('/',HomePageController::class);
 
 
+// Role & Permissions Routes
 
 
 
@@ -56,10 +79,9 @@ Route::resource('/',HomePageController::class);
 
 
 
-// Doctor
-Route::get('/doctors/trash',[DoctorController::class,'trash'])->name('doctors.trash');
-Route::post('/doctors/restore/{id}',[DoctorController::class,'restore'])->name('doctors.restore');
-Route::resource('doctors',DoctorController::class);
+
+
+
 
 
 // Patients
