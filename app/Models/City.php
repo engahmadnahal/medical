@@ -26,4 +26,10 @@ class City extends Model
         'created_at'=>'date:Y-m-d',
         'deleted_at'=>'date:Y-m-d'
     ];
+
+    protected $hidden = [
+        "deleted_at",
+        "created_at",
+        "updated_at",
+    ];
 }

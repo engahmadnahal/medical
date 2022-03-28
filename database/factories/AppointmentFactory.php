@@ -15,7 +15,7 @@ class AppointmentFactory extends Factory
     {
 
         return [
-            'doctor_id'=>$this->faker->numberBetween(1,20),
+            'doctor_id'=>1,
             'patient_id'=>$this->faker->numberBetween(1,20),
             'date'=>$this->faker->date(),
             'time'=>$this->faker->time(),

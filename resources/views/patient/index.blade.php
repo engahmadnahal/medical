@@ -58,6 +58,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($patients as $patient)
+
                                     <tr>
                                         <td colspan="1">
                                             {{ $patient->first_name }} {{ $patient->last_name }}

@@ -206,4 +206,75 @@ class PatientController extends Controller
         return response()->json(['msg'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }
     }
+
+
+
+
+    /// This Section for Api
+
+    public function login(Request $request){
+        $validator = Validator($request->all(),[
+            'email'=>'required|exists:patients,email',
+            'password'=>'required|min:3'
+        ]);
+
+
+        if(!$validator->fails()){
+            $user = Patient::where('email',$request->input('email'))->first();
+            if(Hash::check( $request->input('password') , $user->password )){
+                $token = $user->createToken('User-Api');
+                $user->setAttribute('token',$token->accessToken);
+                return response()->json(
+                    [
+                        'msg'=>'Logged In Is Success !',
+                        'data'=>$user
+                    ],
+                    Response::HTTP_OK
+                );
+            }else{
+                return response()->json(
+                    ['msg'=>$validator->getMessageBag()->first()],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
+        }else{
+            return response()->json(
+                ['msg'=>$validator->getMessageBag()->first()],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+    }
+
+    public function logout(Request $request){
+        $token = $request->user('user-api')->token();
+        $revoked = $token->revoke();
+        return response()->json(
+            ['msg'=> $revoked ? "Logout is success" : "logout is failed"],
+            $revoked ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    public function loginPGCT(Request $request){
+        $validator = Validator($request->all(),[
+            'email'=>'required|exists:patients,email',
+            'password'=>'required|min:3'
+        ]);
+
+
+        if(!$validator->fails()){
+            return $this->genetatePGCT($request);
+
+        }else{
+            return response()->json(
+                ['msg'=>$validator->getMessageBag()->first()],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+    }
+
+    private function genetatePGCT(Request $request){
+
+    }
 }

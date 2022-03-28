@@ -22,6 +22,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+
+
+        /*
+
+                Before Run this Seeder , Run Role And Permission Seeder before
+
+
+        */
         City::factory(30)->create();
         Patient::factory(30)->create();
         Specialite::factory(30)->create();
@@ -42,6 +50,8 @@ class DatabaseSeeder extends Seeder
             'city_id'=>1,
             'specialite_id'=>1,
         ])->syncRoles(1);
+        $role = Role::where('id',1)->first();
+        $role->givePermissionTo(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24);
         Doctor::factory(30)->create();
         Appointment::factory(30)->create();
     }

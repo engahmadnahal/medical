@@ -30,7 +30,7 @@ class PatientPolicy
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Patient $user, Patient $patient)
+    public function view( $user, Patient $patient)
     {
         //
         return $user->hasPermissionTo('Read-Patents')
@@ -59,7 +59,7 @@ class PatientPolicy
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Patient $user, Patient $patient)
+    public function update( $user, Patient $patient)
     {
         //
         return $user->hasPermissionTo('Update-Patent')
