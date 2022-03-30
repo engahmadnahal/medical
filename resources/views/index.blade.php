@@ -44,13 +44,13 @@
                 <h6 class="card-title">{{ __('cms.patients') }}</h6><span
                     class="d-block mg-b-10 text-muted tx-12">{{ __('cms.show_patients') }}</span>
                 <div class="list-group">
-                    {{-- @foreach ($data->pateins as $pateint)
+                    @foreach ($data->pateins as $pateint)
                         <div class="list-group-item ">
                             <p>{{ $pateint->first_name }} {{ $pateint->last_name }}</p><span><a
                                     href="{{ route('patients.show', $pateint->id) }}"><i
                                         class="far fa-eye"></i></a></span>
                         </div>
-                    @endforeach --}}
+                    @endforeach
 
                 </div>
             </div>
@@ -73,7 +73,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($data->appointments as $appoinment)
+                            @foreach ($data->appointments as $appoinment)
                                 <tr>
                                     <td>{{ $appoinment->date }}</td>
                                     <td class="tx-right tx-medium tx-inverse">{{ $appoinment->toArray()['time'] }}</td>
@@ -83,7 +83,7 @@
                                     <td class="tx-right tx-medium tx-inverse">{{ $appoinment->patient->first_name }}
                                         {{ $appoinment->patient->last_name }} (USERID#{{ $appoinment->patient_id }})</td>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
 
                         </tbody>
                     </table>

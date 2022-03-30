@@ -14,13 +14,16 @@ class HomePageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         // $gesst =
         // dd(session('logged')[0]->toArray()['id']);
         // $request->session()->flush();
 
-        return view('index');
+        $doctor = Doctor::where('id',auth()->user()->id)->first();
+
+
+        return view('index',['data'=>$doctor]);
     }
 
     /**

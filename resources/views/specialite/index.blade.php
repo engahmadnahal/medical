@@ -66,7 +66,11 @@
                                             {{ $specialite->toArray()['created_at'] }}
                                         </td>
                                        <td>
+
+                                        <span class="{{$specialite->active == 1 ? 'text-success' : 'text-danger'}}">
                                             {{ $specialite->specialite_status }}
+                                        </span>
+
                                        </td>
 
 
